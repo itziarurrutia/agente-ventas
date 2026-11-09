@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agente de ventas</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">📊</span>
+      <div>
+        <h1>Agente de ventas</h1>
+        <p class="subtitle">Pregunta en lenguaje natural sobre <code>sales_data.db</code> · <span id="model">…</span></p>
+      </div>
+    </div>
+    <button id="new-chat" class="ghost" type="button">Nueva conversación</button>
+  </header>
+
+  <main id="messages" class="messages" aria-live="polite">
+    <section id="welcome" class="welcome">
+      <h2>¿Qué quieres saber de las ventas?</h2>
+      <p>El agente traduce tu pregunta a SQL, consulta la base de datos y te explica el resultado.</p>
+      <div class="suggestions">
+        <button type="button">¿Cuál es el top 5 de tiendas por ventas totales?</button>
+        <button type="button">¿Qué porcentaje de las ventas se hace en promoción?</button>
+        <button type="button">¿Cómo evolucionan las ventas mes a mes?</button>
+        <button type="button">¿Qué clase de producto vende más unidades?</button>
+      </div>
+    </section>
+  </main>
+
+  <form id="composer" class="composer">
+    <textarea id="input" rows="1" placeholder="Escribe tu pregunta… (Enter para enviar, Shift+Enter para salto de línea)" required></textarea>
+    <button id="send" type="submit">Enviar</button>
+  </form>
+
+  <template id="tool-template">
+    <details class="tool">
+      <summary><span class="tool-status">⏳</span> Consulta SQL <span class="tool-meta"></span></summary>
+      <pre class="tool-sql"></pre>
+      <div class="tool-result"></div>
+    </details>
+  </template>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

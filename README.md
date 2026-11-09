@@ -74,6 +74,32 @@ copy .env.example .env
 .venv\Scripts\python agente_ventas.py
 ```
 
+## Versión web
+
+La misma conversación, en el navegador: una API con FastAPI
+(`servidor_web.py`) y una interfaz en HTML, CSS y JavaScript sin frameworks
+(carpeta `web/`). Las respuestas llegan en streaming y cada consulta SQL que
+lanza el agente aparece como una tarjeta desplegable con sus filas.
+
+```sh
+python servidor_web.py
+```
+
+Abre <http://127.0.0.1:8000>. Dentro del contenedor usa
+`python servidor_web.py --host 0.0.0.0`; VS Code reenvía el puerto 8000.
+También acepta `--port` y `--modelo`.
+
+API:
+
+- `POST /api/chat` con `{"conversation_id": null, "message": "..."}` devuelve
+  un flujo `text/event-stream` con eventos `start` (trae el `conversation_id`
+  para las preguntas siguientes), `delta`, `tool_start`, `tool_end`, `error` y
+  `done`.
+- `DELETE /api/chat/{conversation_id}` cierra la conversación.
+- `GET /api/info` indica el modelo en uso.
+
+Las conversaciones viven en memoria: se pierden al reiniciar el servidor.
+
 ## Detalles
 
 Usa OpenRouter con el modelo `deepseek/deepseek-v4.1-flash`; puedes elegir otro
@@ -88,5 +114,3 @@ desarrollo ya lo trae predescargado).
 
 La base SQLite se abre en modo de solo lectura y se devuelven como máximo 100
 filas por consulta.
-
-La versión con interfaz web vive en la rama `codex/web`.

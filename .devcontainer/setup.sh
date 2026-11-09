@@ -22,4 +22,4 @@ fi
 echo
 echo "==> Entorno listo."
 echo "    Abre .env y pega tu OPENROUTER_API_KEY (es el único paso manual)."
-echo "    Después: python agente_ventas.py"
+echo "    Después: python agente_ventas.py  (o la web: python servidor_web.py --host 0.0.0.0)"
